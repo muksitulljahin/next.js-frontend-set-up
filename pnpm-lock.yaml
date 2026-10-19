@@ -29,6 +29,9 @@ importers:
       next:
         specifier: 16.2.6
         version: 16.2.6(@babel/core@7.29.0(supports-color@10.2.2))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      next-navigation:
+        specifier: ^1.0.6
+        version: 1.0.6
       radix-ui:
         specifier: ^1.8.1
         version: 1.8.1(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -2387,6 +2390,9 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
+  next-navigation@1.0.6:
+    resolution: {integrity: sha512-D4JXnngfeDFA+zsIWFcl8tr/rnCOXEUgJElfQ6zdcpHuNgR4peHKsk+FE1AGykEufKC7xgwv9oOSGK16c1VGiQ==}
+
   next@16.2.6:
     resolution: {integrity: sha512-qOVgKJg1+At15NpeUP+eJgCHvTCgXsogweq87Ri/Ix7PkqQHg4sdaXmSFqKlgaIXE4kW0g25LE68W87UANlHtw==}
     engines: {node: '>=20.9.0'}
@@ -2575,6 +2581,10 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  react@16.14.0:
+    resolution: {integrity: sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==}
+    engines: {node: '>=0.10.0'}
 
   react@19.2.4:
     resolution: {integrity: sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ==}
@@ -5353,6 +5363,10 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
+  next-navigation@1.0.6:
+    dependencies:
+      react: 16.14.0
+
   next@16.2.6(@babel/core@7.29.0(supports-color@10.2.2))(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       '@next/env': 16.2.6
@@ -5595,6 +5609,12 @@ snapshots:
       tslib: 2.8.1
     optionalDependencies:
       '@types/react': 19.2.14
+
+  react@16.14.0:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      prop-types: 15.8.1
 
   react@19.2.4: {}
 
