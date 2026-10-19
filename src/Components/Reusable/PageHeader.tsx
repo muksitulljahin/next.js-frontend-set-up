@@ -22,11 +22,13 @@ interface BreadcrumbItemInfo {
 }
 
 const findMenuPath = (
-  menuItems: any[],
+  menuItems: any[] = [],
   targetHref: string,
   currentPath: BreadcrumbItemInfo[] = [],
 ): BreadcrumbItemInfo[] | null => {
+  if (!menuItems || !Array.isArray(menuItems)) return null;
   for (const item of menuItems) {
+    if (!item || !item.title) continue;
     const currentItemInfo: BreadcrumbItemInfo = {
       label: item.title.toUpperCase(),
       path: item.href || null,
@@ -69,8 +71,8 @@ const isIdSegment = (seg: string) => {
 
 const getBreadcrumbs = (
   pathname: string,
-  menu: any[],
   hideIdBreadcrumb: boolean = true,
+  menu: any[] = [],
 ): BreadcrumbItemInfo[] => {
   if (!pathname || pathname === "/") {
     return [];
@@ -139,7 +141,7 @@ export function PageHeader({
       }));
     }
     const breadcrumbsResult = getBreadcrumbs(pathname || "", hideIdBreadcrumb);
-    return [{ label: "Home", path: "/dashboard" }, ...breadcrumbsResult];
+    return [{ label: "Home", path: "/" }, ...breadcrumbsResult];
   }, [pathname, breadcrumbs, hideIdBreadcrumb]);
 
   return (
