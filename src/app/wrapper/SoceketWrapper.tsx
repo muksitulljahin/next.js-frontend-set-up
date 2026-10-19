@@ -11,7 +11,7 @@ import { io, Socket } from "socket.io-client";
 import { toast } from "sonner";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { useAdminAuth } from "@/src/Hooks/useAdminAuth";
+import { useAdminAuth } from "@/src/Hooks/Auth/useAdminAuth";
 
 const socketUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
