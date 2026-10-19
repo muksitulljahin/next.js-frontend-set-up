@@ -1,3 +1,11 @@
+import { Button } from "../Components/Reusable/button";
+
 export default function page() {
-  return <div>page</div>;
+  return (
+    <div>
+      <Button>
+        <span>Button</span>
+      </Button>
+    </div>
+  );
 }
