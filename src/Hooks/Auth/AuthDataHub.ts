@@ -1,9 +1,5 @@
 import api from "./axiosinstance";
 
-/**
- * API methods handling user login flows, OTP validation, profile completions, and info fetching.
- * Workflow: Exports direct Axios post/get wrappers targeting the `/user` boundary on the backend.
- */
 export const useAdminLogin = async (payload: { phone: string }) => {
   const res = await api.post("/user/request-otp", payload);
   return res?.data;
