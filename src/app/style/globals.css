@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+/* :root {
+  --primary: #0c2ec4a2;
+  --white: #ffffff;
+  --black: #000000;
+  --gray: #504848;
+  --light-gray: #e9e2e2;
+} */
+
+:root {
+  --primary: #155e75;
+  --white: #ffffff;
+  --black: #0f172a;
+  --gray: #5d7392;
+  --light-gray: #f0f2f2;
+  --rose: #f84960;
+}
+
+@utility primary-rounded {
+  @apply rounded-lg;
+}
