@@ -1,8 +1,7 @@
 "use client";
 
-import clsx, { ClassValue } from "clsx";
 import { FormProvider, UseFormReturn } from "react-hook-form";
-import { twMerge } from "tailwind-merge";
+import { cn } from "../ui/utils";
 
 interface FormWrapperProps {
   form: UseFormReturn<any>;
@@ -11,10 +10,6 @@ interface FormWrapperProps {
   className?: string;
   children: React.ReactNode;
   onKeyDown?: (e: React.KeyboardEvent) => void;
-}
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
 }
 
 export const FormWrapper = ({
