@@ -12,10 +12,6 @@ interface AuthState {
   setHydrated: () => void;
 }
 
-/**
- * Global Zustand store to manage user authentication state.
- * It persists the state to `localStorage` to keep the user logged in across page reloads.
- */
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
