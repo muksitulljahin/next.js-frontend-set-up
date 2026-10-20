@@ -2,8 +2,8 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { AuthUser, UserProfile } from "./user.type";
-import { getAdminInfo } from "./AuthDataHub";
+import { AuthUser } from "./user.type";
+import { getUserInfo } from "./AuthDataHub";
 import { useAuthStore } from "@/store/auth/useAuthStore";
 
 /**
@@ -13,7 +13,7 @@ import { useAuthStore } from "@/store/auth/useAuthStore";
  *
  * @returns An object containing user info, authentication status, and methods to set auth or logout.
  */
-export const useAdminAuth = () => {
+export const useUserAuth = () => {
   const queryClient = useQueryClient();
   const {
     accessToken,
@@ -25,13 +25,13 @@ export const useAdminAuth = () => {
   } = useAuthStore();
 
   const {
-    data: adminData,
+    data: userData,
     isLoading,
     refetch,
     isError,
   } = useQuery({
     queryKey: ["user-info"],
-    queryFn: getAdminInfo,
+    queryFn: getUserInfo,
     // Enable if we have a refresh token OR an access token
     enabled: isHydrated && (!!accessToken || !!refreshToken),
     retry: 1, // Retry once to allow interceptor to refresh token
@@ -72,7 +72,7 @@ export const useAdminAuth = () => {
   return {
     localUser,
     isLoading,
-    isAuthenticated: !!adminData,
+    isAuthenticated: !!userData,
     isError,
     setAuth,
     logout,

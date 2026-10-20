@@ -1,44 +1,44 @@
 import api from "./axiosinstance";
 
-export const useAdminLogin = async (payload: { phone: string }) => {
+export const useUserLogin = async (payload: { phone: string }) => {
   const res = await api.post("/user/request-otp", payload);
   return res?.data;
 };
 
-// --- Admin Auth ---
-export const adminLogin = async (payload: {
+// --- User Auth ---
+export const UserLogin = async (payload: {
   email?: string;
   phoneNumber?: string;
   password?: string;
 }) => {
-  const res = await api.post("/admins/login", payload);
+  const res = await api.post("/Users/login", payload);
   return res?.data;
 };
 
-export const adminRequestOtp = async (payload: {
+export const UserRequestOtp = async (payload: {
   email?: string;
   phone?: string;
   countryCode: string;
 }) => {
-  const res = await api.post("/admin/request-otp", payload);
+  const res = await api.post("/User/request-otp", payload);
   return res?.data;
 };
 
-export const verifyAdminOtp = async (otp: string) => {
-  const res = await api.post("/admins/verify-otp", { otp });
+export const verifyUserOtp = async (otp: string) => {
+  const res = await api.post("/Users/verify-otp", { otp });
   return res?.data;
 };
 
-export const adminVerifyOtp = async (payload: {
+export const UserVerifyOtp = async (payload: {
   email?: string;
   phone?: string;
   countryCode: string;
   otp: string;
 }) => {
-  const res = await api.post("/admins/verify-otp", payload);
+  const res = await api.post("/Users/verify-otp", payload);
   return res?.data;
 };
-export const useAdminVerify = async (payload: {
+export const useUserVerify = async (payload: {
   phone: string;
   otp: string;
   firstName?: string;
@@ -49,12 +49,12 @@ export const useAdminVerify = async (payload: {
   return res?.data;
 };
 
-export const getAdminInfo = async () => {
-  const res = await api.get("/admins/profile");
+export const getUserInfo = async () => {
+  const res = await api.get("/Users/profile");
   return res?.data?.data;
 };
 
-export const useUpdateAdminInfo = async (payload: {
+export const useUpdateUserInfo = async (payload: {
   firstName: string;
   lastName: string;
   gender: string;
@@ -65,6 +65,6 @@ export const useUpdateAdminInfo = async (payload: {
 };
 
 export const getDashboardStats = async () => {
-  const res = await api.get("/admin/dashboard-stats");
+  const res = await api.get("/User/dashboard-stats");
   return res?.data?.data;
 };
