@@ -14,19 +14,7 @@ import {
   type SortingState,
   type VisibilityState,
 } from "@tanstack/react-table";
-import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useRef, useState } from "react";
-
-import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { cn } from "@/lib/utils";
 
 function hasAccessorKey<TData, TValue>(
   col: ColumnDef<TData, TValue>,
