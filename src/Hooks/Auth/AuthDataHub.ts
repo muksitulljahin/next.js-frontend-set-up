@@ -1,3 +1,4 @@
+import { API } from "@/Api/PARENTS_API_PATH";
 import api from "./axiosinstance";
 
 export const useUserLogin = async (payload: { phone: string }) => {
@@ -50,7 +51,7 @@ export const useUserVerify = async (payload: {
 };
 
 export const getUserInfo = async () => {
-  const res = await api.get("/Users/profile");
+  const res = await api.get(API.GET_USER_LIST);
   return res?.data?.data;
 };
 
