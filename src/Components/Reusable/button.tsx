@@ -10,7 +10,7 @@ const buttonVariants = cva(
       variant: {
         main: "bg-primary text-primary-foreground hover:bg-primary/80",
         default:
-          "rounded-md  border-none bg-(--primary) text-(--white) hover:bg-(--primary/80) dark:text-white  font-bold   shadow-sm  uppercase tracking-wide",
+          "rounded-md  border-none bg-(--primary) text-(--white) hover:bg-(--primary/10) dark:text-white  font-bold   shadow-sm  uppercase tracking-wide",
       },
       size: {
         default:
