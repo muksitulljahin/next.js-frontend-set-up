@@ -1,9 +1,10 @@
 "use client";
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAuthStore } from "@/store/useAuthStore";
+
 import { AuthUser, UserProfile } from "./user.type";
 import { getAdminInfo } from "./AuthDataHub";
+import { useAuthStore } from "@/store/auth/useAuthStore";
 
 /**
  * Custom hook for managing user authentication state and remote data fetching.
