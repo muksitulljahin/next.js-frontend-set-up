@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useAuthStore } from "@/store/useAuthStore";
+
 import { DecryptData } from "@/app/utils/decryptionDATA";
+import { useAuthStore } from "@/store/auth/useAuthStore";
 
 // Create an axios instance with default config
 const api = axios.create({
