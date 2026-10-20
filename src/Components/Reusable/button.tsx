@@ -10,25 +10,7 @@ const buttonVariants = cva(
       variant: {
         main: "bg-primary text-primary-foreground hover:bg-primary/80",
         default:
-          "rounded-md  border-none bg-primary text-primary-foreground hover:bg-primary/80 dark:text-white  font-black  hover:bg-primary/90  shadow-sm  uppercase tracking-wide",
-        outline:
-          "rounded-md border border-border/80 bg-card  font-black  text-zinc-800 dark:text-gray-100 hover:bg-muted  shadow-sm   uppercase tracking-wide cursor-pointer  aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
-        outlineForSelect:
-          "rounded-lg border border-input bg-card text-foreground hover:border-slate-400 dark:hover:border-slate-600 focus-visible:ring-1 focus-visible:ring-blue-500",
-        secondary:
-          "rounded-md bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
-        ghost:
-          "rounded-md hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
-        destructive:
-          "rounded-md bg-destructive/10 font-black uppercase tracking-wide text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
-        logout:
-          "font-black rounded-md border bg-red-600 text-white tracking-wide uppercase shadow-sm shadow-red-600/20 hover:bg-red-700 hover:shadow-md hover:shadow-red-600/30 active:bg-red-800 focus-visible:border-red-600 focus-visible:ring-red-500/40 dark:bg-red-600 dark:hover:bg-red-700 dark:focus-visible:ring-red-500/40",
-        link: "text-primary underline-offset-4 hover:underline",
-        group:
-          " rounded-md  font-black uppercase tracking-wider transition-all duration-300 relative whitespace-nowrap bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-sm shadow-rose-500/20 scale-[1.02]",
-        shine:
-          "relative overflow-hidden bg-gradient-to-br from-[#1d4ed8] to-[#0b3c95] text-white shadow-[0_8px_32px_rgba(29,78,216,0.35)] transition-all duration-400 cubic-bezier(0.4,0,0.2,1) hover:not-disabled:shadow-[0_12px_40px_rgba(29,78,216,0.5)] hover:not-disabled:-translate-y-0.5 active:not-disabled:translate-y-0 after:content-[''] after:absolute after:top-0 after:left-0 after:w-1/2 after:height-full after:bg-gradient-to-r after:from-transparent after:via-white/12 after:to-transparent after:animate-[shimmerSlide_3s_ease-in-out_infinite] disabled:opacity-40 disabled:cursor-not-allowed border-none",
-        icon: "relative overflow-hidden bg-gradient-to-br from-[#1d4ed8] to-[#0b3c95] hover:bg-gradient-to-br from-[#0b3c95] to-[#1d4ed8] text-white shadow-sm transition-all duration-400 cubic-bezier(0.4,0,0.2,1) hover:not-disabled:shadow-[0_12px_40px_rgba(29,78,216,0.5)] hover:not-disabled:-translate-y-0.5 active:not-disabled:translate-y-0 after:content-[''] after:absolute after:top-0 after:left-0 after:w-1/2 after:height-full after:bg-gradient-to-r after:from-transparent after:via-white/12 after:to-transparent after:animate-[shimmerSlide_3s_ease-in-out_infinite] disabled:opacity-40 disabled:cursor-not-allowed border-none",
+          "rounded-md  border-none bg-(--primary) text-(--white) hover:bg-(--primary/80) dark:text-white  font-bold   shadow-sm  uppercase tracking-wide",
       },
       size: {
         default:
