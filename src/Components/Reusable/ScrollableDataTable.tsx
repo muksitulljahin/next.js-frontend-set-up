@@ -7,7 +7,7 @@ import type {
   RowSelectionState,
 } from "@tanstack/react-table";
 import { useMemo } from "react";
-import { DataTable } from "./DataTable";
+import { DataTable } from "../ui/DataTable";
 
 interface ScrollableDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
