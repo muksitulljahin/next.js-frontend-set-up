@@ -1,11 +1,12 @@
 import axios from "axios";
 
-import { DecryptData } from "@/app/utils/decryptionDATA";
-import { useAuthStore } from "@/store/auth/useAuthStore";
+import { DecryptData } from "@/utils/decryptionDATA";
+import { useAuthStore } from "@/Store/useAuthStore";
+
 
 // Create an axios instance with default config
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL ,
 });
 
 // Add a request interceptor to attach the token
@@ -31,12 +32,12 @@ api.interceptors.response.use(
   (response) => {
     if (response.data && response.data.data !== undefined) {
       response.data.data = DecryptData(response.data.data);
-      console.log("response", response.data.data);
     }
     return response;
   },
   async (error) => {
-    const errorData = error.response?.data as any;
+    const errorData = error.response?.data as
+      | { code?: string; message?: string };
     if (error.response?.status === 401 || errorData?.code === "TOKEN_EXPIRED") {
       useAuthStore.getState().clearAuth();
     }

@@ -1,25 +1,31 @@
 "use client";
 
-import { FormProvider, UseFormReturn } from "react-hook-form";
+import {
+  FieldValues,
+  FormProvider,
+  SubmitErrorHandler,
+  SubmitHandler,
+  UseFormReturn,
+} from "react-hook-form";
 import { cn } from "../ui/utils";
 
-interface FormWrapperProps {
-  form: UseFormReturn<any>;
-  onSubmit: (values: any) => void | Promise<void>;
-  onError?: (errors: any) => void;
+interface FormWrapperProps<TFieldValues extends FieldValues = FieldValues> {
+  form: UseFormReturn<TFieldValues>;
+  onSubmit: SubmitHandler<TFieldValues>;
+  onError?: SubmitErrorHandler<TFieldValues>;
   className?: string;
   children: React.ReactNode;
   onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 
-export const FormWrapper = ({
+export const FormWrapper = <TFieldValues extends FieldValues = FieldValues>({
   form,
   onSubmit,
   onError,
   className,
   children,
   onKeyDown,
-}: FormWrapperProps) => {
+}: FormWrapperProps<TFieldValues>) => {
   return (
     <FormProvider {...form}>
       <form

@@ -2,24 +2,51 @@
 
 import {
   flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  useReactTable,
-  type ColumnDef,
   type ColumnOrderState,
   type OnChangeFn,
-  type Table as ReactTable,
-  type Row,
   type RowSelectionState,
   type SortingState,
-  type VisibilityState,
 } from "@tanstack/react-table";
+import {
+  useLegacyTable as useReactTable,
+  getCoreRowModel,
+  getSortedRowModel,
+  type LegacyColumnDef as ColumnDef,
+  type LegacyRow as Row,
+  type LegacyTable as ReactTable,
+} from "@tanstack/react-table/legacy";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { cn } from "./utils";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableHead,
+} from "./table";
+import { Skeleton } from "./skeleton";
 
-function hasAccessorKey<TData, TValue>(
-  col: ColumnDef<TData, TValue>,
-): col is ColumnDef<TData, TValue> & { accessorKey: string } {
-  return "accessorKey" in col;
+export type VisibilityState = Record<string, boolean>;
+
+interface CustomColumnMeta {
+  sticky?: "left" | "right";
+  stickyOffset?: number;
+  headerAlign?: "left" | "center" | "right";
+  [key: string]: unknown;
+}
+
+interface ColumnWithMeta {
+  id?: string;
+  accessorKey?: string;
+  size?: number;
+  meta?: CustomColumnMeta;
+}
+
+function hasAccessorKey(
+  col: unknown,
+): col is { accessorKey: string } {
+  return typeof col === "object" && col !== null && "accessorKey" in col;
 }
 
 const toCamelCase = (text: string) => {
@@ -43,7 +70,10 @@ const getStickyStyles = (
   };
 };
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<
+  TData extends object = Record<string, unknown>,
+  TValue = unknown,
+> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 
@@ -87,7 +117,10 @@ interface DataTableProps<TData, TValue> {
   maxHeight?: string | number;
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<
+  TData extends object = Record<string, unknown>,
+  TValue = unknown,
+>({
   columns,
   data,
 
@@ -128,7 +161,7 @@ export function DataTable<TData, TValue>({
   affixHeader,
   maxHeight,
 }: DataTableProps<TData, TValue>) {
-  const t = useTranslations("Common");
+  const t = (key: string) => (key === "sl" ? "SL" : key);
 
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLTableSectionElement>(null);
@@ -155,20 +188,25 @@ export function DataTable<TData, TValue>({
   const tableColumns = useMemo(() => {
     if (!showSL) return columns;
 
-    const filteredColumns = columns.filter(
-      (col) =>
-        col.id !== "sl" && (!hasAccessorKey(col) || col.accessorKey !== "sl"),
-    );
+    const filteredColumns = columns.filter((col) => {
+      const colExt = col as unknown as ColumnWithMeta;
+      return (
+        colExt.id !== "sl" &&
+        (!hasAccessorKey(col) || colExt.accessorKey !== "sl")
+      );
+    });
 
-    const selectIdx = filteredColumns.findIndex(
-      (col) =>
-        col.id === "select" ||
-        (hasAccessorKey(col) && col.accessorKey === "select"),
-    );
+    const selectIdx = filteredColumns.findIndex((col) => {
+      const colExt = col as unknown as ColumnWithMeta;
+      return (
+        colExt.id === "select" ||
+        (hasAccessorKey(col) && colExt.accessorKey === "select")
+      );
+    });
 
     let slOffset = 0;
     if (selectIdx !== -1 && isSlSticky) {
-      const selectCol = filteredColumns[selectIdx];
+      const selectCol = filteredColumns[selectIdx] as unknown as ColumnWithMeta;
       const isSelectSticky = selectCol?.meta?.sticky === "left";
       if (isSelectSticky) {
         slOffset =
@@ -176,11 +214,11 @@ export function DataTable<TData, TValue>({
       }
     }
 
-    const slColumn: ColumnDef<TData, TValue> = {
+    const slColumn = {
       id: "sl",
       header: () => t("sl") || "SL",
       size: 48,
-      cell: ({ row }) => (
+      cell: ({ row }: { row: { index: number } }) => (
         <span className="block text-center text-gray-500 tabular-nums dark:text-slate-400">
           {(currentPage - 1) * pageSize + row.index + 1}
         </span>
@@ -189,12 +227,12 @@ export function DataTable<TData, TValue>({
         headerAlign: "center",
         ...(isSlSticky
           ? {
-              sticky: "left",
+              sticky: "left" as const,
               stickyOffset: slOffset,
             }
           : {}),
       },
-    };
+    } as unknown as ColumnDef<TData, TValue>;
 
     if (selectIdx !== -1) {
       return [
@@ -205,11 +243,11 @@ export function DataTable<TData, TValue>({
     }
 
     return [slColumn, ...filteredColumns];
-  }, [columns, currentPage, isSlSticky, pageSize, showSL, t]);
+  }, [columns, currentPage, isSlSticky, pageSize, showSL]);
 
-  const table = useReactTable({
+  const table = useReactTable<TData>({
     data,
-    columns: tableColumns,
+    columns: tableColumns as unknown as ColumnDef<TData, unknown>[],
 
     state: {
       sorting: sortingState,
@@ -219,11 +257,12 @@ export function DataTable<TData, TValue>({
     },
 
     onSortingChange: handleSortingChange,
-    onColumnVisibilityChange,
+    onColumnVisibilityChange:
+      onColumnVisibilityChange as OnChangeFn<Record<string, boolean>>,
     onColumnOrderChange,
     onRowSelectionChange,
-    enableRowSelection,
-    getRowId,
+    enableRowSelection: enableRowSelection as boolean | ((row: unknown) => boolean),
+    getRowId: getRowId as (originalRow: unknown, index: number, parent?: unknown) => string,
 
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -340,7 +379,7 @@ export function DataTable<TData, TValue>({
     table.getHeaderGroups().map((group) => (
       <TableRow key={isAffixedClone ? `affixed-${group.id}` : group.id}>
         {group.headers.map((header) => {
-          const meta = header.column.columnDef.meta;
+          const meta = header.column.columnDef.meta as CustomColumnMeta | undefined;
 
           const align = meta?.headerAlign ?? "left";
           const sticky = meta?.sticky;
@@ -410,7 +449,7 @@ export function DataTable<TData, TValue>({
             {Array.from({ length: loadingRows }).map((_, rowIndex) => (
               <TableRow key={rowIndex}>
                 {table.getVisibleLeafColumns().map((column) => {
-                  const meta = column.columnDef.meta;
+                  const meta = column.columnDef.meta as CustomColumnMeta | undefined;
 
                   return (
                     <TableCell
@@ -513,7 +552,7 @@ export function DataTable<TData, TValue>({
                   )}
                 >
                   {row.getVisibleCells().map((cell) => {
-                    const meta = cell.column.columnDef.meta;
+                    const meta = cell.column.columnDef.meta as CustomColumnMeta | undefined;
 
                     return (
                       <TableCell

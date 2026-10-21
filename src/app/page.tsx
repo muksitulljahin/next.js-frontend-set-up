@@ -1,13 +1,11 @@
-import { PageHeader } from "@/Components/Reusable/PageHeader";
-import { Button } from "@/Components/Reusable/button";
+"use client";
 
-export default function page() {
+import AuthGurd from "@/Components/Gurd/AuthGurd";
+
+export default function Page() {
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
-      <PageHeader className=" w-fit" />
-      <Button>
-        <span>Button</span>
-      </Button>
-    </div>
+    <AuthGurd>
+      <div>home</div>
+    </AuthGurd>
   );
 }

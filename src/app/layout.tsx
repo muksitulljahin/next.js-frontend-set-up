@@ -1,15 +1,11 @@
-import "./style/globals.css";
-import Providers from "./wrapper/Providers";
+import "./globals.css";
+import QueryProvider from "@/Components/Provider/QueryProvider";
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="antialiased min-h-screen bg-background text-foreground">
-        <Providers>{children}</Providers>
+      <body className="min-h-full flex flex-col">
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );

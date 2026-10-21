@@ -21,8 +21,14 @@ interface BreadcrumbItemInfo {
   path: string | null;
 }
 
+interface MenuItem {
+  title?: string;
+  href?: string;
+  children?: MenuItem[];
+}
+
 const findMenuPath = (
-  menuItems: any[] = [],
+  menuItems: MenuItem[] = [],
   targetHref: string,
   currentPath: BreadcrumbItemInfo[] = [],
 ): BreadcrumbItemInfo[] | null => {
@@ -72,7 +78,7 @@ const isIdSegment = (seg: string) => {
 const getBreadcrumbs = (
   pathname: string,
   hideIdBreadcrumb: boolean = true,
-  menu: any[] = [],
+  menu: MenuItem[] = [],
 ): BreadcrumbItemInfo[] => {
   if (!pathname || pathname === "/") {
     return [];
